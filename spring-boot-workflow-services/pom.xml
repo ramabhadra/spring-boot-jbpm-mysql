@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.bhadra.jbpm.poc</groupId>
+	<artifactId>spring-boot-workflow-services</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>spring-boot-workflow-services</name>
+	<description>JBPM spring-boot-workflow-services with spring boot</description>
+
+	<!-- lookup parent from repository -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.6.RELEASE</version>
+		<relativePath />
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>Finchley.RC2</spring-cloud.version>
+		<jbpm.version>7.33.0.Final</jbpm.version>
+		<hibernate.version>5.0.1.Final</hibernate.version>
+		<!-- <btm.version>2.1.4</btm.version> -->
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<!-- <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+			</dependency> -->
+		<!-- <dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency> -->
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+	</dependency>
+
+		<!-- org.kie dependencies begin -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-api</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-ci -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-ci</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-dmn-api -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-dmn-api</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-dmn-backend -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-dmn-backend</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-dmn-core -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-dmn-core</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-dmn-feel -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-dmn-feel</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.kie/kie-dmn-model -->
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-dmn-model</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-internal</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.kie</groupId>
+			<artifactId>kie-spring</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- org.kie ended -->
+
+		<!-- org.jbpm Started -->
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-services-cdi -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-services-cdi</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-bpmn2</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-audit</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-docs -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-docs</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-executor -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-executor</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-flow</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-flow-builder</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-human-task-audit</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-human-task-core</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-human-task-jpa</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-human-task-workitems</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-persistence-jpa -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-persistence-jpa</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-query-jpa -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-query-jpa</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-runtime-manager</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-services-api</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-kie-services</artifactId>
+			<version>${jbpm.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>freemarker</artifactId>
+					<groupId>org.freemarker</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>javassist</artifactId>
+					<groupId>javassist</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-shared-services -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-shared-services</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-case-mgmt-api -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-case-mgmt-api</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-case-mgmt-impl -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-case-mgmt-impl</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-executor-ejb -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-executor-ejb</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-persistence-api -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-persistence-api</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-services-ejb-api -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-services-ejb-api</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-services-ejb-client -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-services-ejb-client</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-services-ejb-impl -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-services-ejb-impl</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-services-ejb-timer -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-services-ejb-timer</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-test -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-test</artifactId>
+			<version>${jbpm.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-workitems-bpmn2 -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-workitems-bpmn2</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-workitems-core -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-workitems-core</artifactId>
+			<version>${jbpm.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-workitems-email -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-workitems-email</artifactId>
+			<version>${jbpm.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-workitems-jms -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-workitems-jms</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-workitems-rest -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-workitems-rest</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-workitems-webservice -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-workitems-webservice</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jbpm/jbpm-case-mgmt-cmmn -->
+		<dependency>
+			<groupId>org.jbpm</groupId>
+			<artifactId>jbpm-case-mgmt-cmmn</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- org.jbpm ended -->
+		<!-- btm started -->
+		<dependency>
+			<groupId>org.codehaus.btm</groupId>
+			<artifactId>btm</artifactId>
+			<!-- <version>${btm.version}</version> -->
+			<exclusions>
+				<exclusion>
+					<artifactId>jta</artifactId>
+					<groupId>javax.transaction</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- btm ended -->
+		<!-- org.drools Started -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-core</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-compiler -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-compiler</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-canonical-model -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-canonical-model</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-model-compiler -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-model-compiler</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-persistence-jpa</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.drools/drools-persistence-api -->
+		<dependency>
+			<groupId>org.drools</groupId>
+			<artifactId>drools-persistence-api</artifactId>
+			<version>${jbpm.version}</version>
+		</dependency>
+		<!-- org.drools Ended -->
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<!-- <version>${hibernate.version}</version> -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<!-- <version>${hibernate.version}</version> -->
+		</dependency>
+		<!-- test dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<!-- <version>1.7.5</version> -->
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<!-- <version>2.10.0</version> -->
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+</project>
